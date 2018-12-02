@@ -1,0 +1,17 @@
+version: "3.5"
+
+services:
+
+  db:
+    image: postgres
+    container_name: django-reactive
+    restart: always
+    volumes:
+    - "./data/pgdata:/var/lib/postgresql/data"
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+      POSTGRES_DB: example
+      PGDATA: /var/lib/postgresql/data/pgdata
