@@ -10,13 +10,15 @@ USE_TZ = True
 SECRET_KEY = "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": ":memory:",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'tests',
+        'USER': 'postgres',
+        'HOST': 'localhost',
+        'PASSWORD': '',
+        'PORT': '5432',
     }
 }
-
-ROOT_URLCONF = "tests.urls"
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -31,3 +33,5 @@ if django.VERSION >= (1, 10):
     MIDDLEWARE = ()
 else:
     MIDDLEWARE_CLASSES = ()
+
+STATIC_URL = '/static/'

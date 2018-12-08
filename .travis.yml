@@ -1,23 +1,26 @@
-# Config file for automatic testing at travis-ci.org
-
 language: python
-
-python:
-  - "3.6"
-
-env: 
-  - TOX_ENV=py36-django-20
-  - TOX_ENV=py35-django-20
-  - TOX_ENV=py34-django-20
-
+services:
+- postgresql
 matrix:
   fast_finish: true
-
-# command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
+  include:
+  - python: 3.6
+    env: TOX_ENV=py36-django-20
+  - python: 3.7
+    dist: xenial
+    sudo: true
+    env: TOX_ENV=py37-django-20
 install: pip install -r requirements_test.txt
-
-# command to run tests using coverage, e.g. python setup.py test
+before_script:
+- psql -c 'create database tests;' -U postgres
 script: tox -e $TOX_ENV
-
 after_success:
-  - codecov -e TOX_ENV
+- codecov -e TOX_ENV
+deploy:
+  on:
+    tags: true
+  provider: pypi
+  user: tyomo4ka
+  password:
+    secure: wE5FrUD9KtswyGj8ZYJhfOfxTfJNBA9ITENIr3tCWIaoMJ5r/Rty27oko1okqQQcReuO3KQYLVpnnKj+jQeDEWBwF4TK93m4TMoBiuqqu4ZzI6cQi6bO/31iahNWaMpDKiXmTv5Li46yWFAqLuo93mBeJzGdPy1cYkkJnStzbHrPWSi9dGAfhN4s3OdUPX4tUPIWZmd16ULmAoM0XM5fY3Ds/IaeDOvk6/eBauafWYGgPtjk4gJzjipKOOmpwxGNuNCzAQMVWDriRbSd4ULbJovANZbNFDbFTxL/5FLELHhD89cHyd+R7V/PtjMsbMfkWTT9SIvmpfVr9g+7iCibob94AY5q3T17nk4lfmdyHQoWXa92elq51Hp0rXPI/pELV2+dup8hAkkNClOtlQ3pWF/zsdg4AEhRDTe6xgyCRz4apKOjL+35b78YfNtaXoyps6lAMb1ssXIBN9R20O7MrrCuxEU6j2XJDJYgurI4bbnE+0qDMHCdnAYLRPvab0gu7wDP/zLI4Rl0Yog1FTmm1aQf8rbYUQag2sFjvQe697IXBSlipDhkLEcBExBibgLHkN9MwNKLz4yr7VHN9W+UoHv7lPBIA6j9AsXlmJeD0icxxiopE82mijuGDm+hdrtj6ZIIUlE/jiWHDQWKvxeTsbU2nSK2N2KURYOF7YZF0fA=
+  skip_existing: true

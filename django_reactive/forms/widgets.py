@@ -1,8 +1,9 @@
+import json
+
 from django.conf import settings
 from django.forms.widgets import Widget
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-import json
 
 
 class ReactJSONSchemaFormWidget(Widget):
@@ -21,15 +22,17 @@ class ReactJSONSchemaFormWidget(Widget):
 
     template_name = 'django_reactive.html'
 
-    def __init__(self, schema, **kwargs):
+    def __init__(self, schema, ui_schema=None, **kwargs):
         self.schema = schema
-        super().__init__(**kwargs)
+        self.ui_schema = ui_schema
+        super(ReactJSONSchemaFormWidget, self).__init__(**kwargs)
 
     def render(self, name, value, attrs=None, renderer=None):
         context = {
             'data': value,
             'name': name,
             'schema': json.dumps(self.schema),
+            'ui_schema': json.dumps(self.ui_schema) if self.ui_schema else '{}',
         }
 
         return mark_safe(render_to_string(self.template_name, context))

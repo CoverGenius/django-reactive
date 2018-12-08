@@ -16,6 +16,8 @@ Integrates react-json-schema-form in Django Forms.
 Documentation
 -------------
 
+Django reactive integrates `react-jsonschema-form <https://github.com/mozilla-services/react-jsonschema-form>`_ in
+your Django project.
 The full documentation is at https://django-reactive.readthedocs.io.
 
 Quickstart
@@ -35,42 +37,7 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
-Add django-reactive's URL patterns:
-
-.. code-block:: python
-
-    from django_react_json_schema_form import urls as django_react_json_schema_form_urls
-
-
-    urlpatterns = [
-        ...
-        url(r'^', include(django_react_json_schema_form_urls)),
-        ...
-    ]
-
 Features
 --------
 
-* TODO
-
-Running Tests
--------------
-
-Does the code actually work?
-
-::
-
-    source <YOURVIRTUALENV>/bin/activate
-    (myenv) $ pip install tox
-    (myenv) $ tox
-
-Credits
--------
-
-Tools used in rendering this package:
-
-*  Cookiecutter_
-*  `cookiecutter-djangopackage`_
-
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`cookiecutter-djangopackage`: https://github.com/pydanny/cookiecutter-djangopackage
+* Find a way to display description in the form

@@ -1,0 +1,129 @@
+/* Hide description for now. TODO: find a way do display it in the form. */
+.form-row .rjsf .field-description {
+  display: none;
+}
+
+/* Add bare minimum of styles to look like a normal Django field */
+.form-row .rjsf .form-group {
+  padding: 10px 0 0 20px;
+}
+
+.form-row .rjsf .text-danger {
+  color: #ba2121;
+}
+
+.form-row .rjsf .error-detail li {
+  list-style-type: square;
+}
+
+.form-row .rjsf input[type='checkbox'], .form-row .rjsf input[type='radio'] {
+  margin-right: 5px;
+}
+
+/* Arrays */
+.form-row .rjsf .array-item {
+  padding: 10px;
+}
+
+.form-row .rjsf .array-item-toolbox {
+  position: relative;
+  float: right;
+  bottom: 20px;
+}
+
+.form-row .rjsf button {
+  background: dimgray;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  padding: 0 6px;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 0 0 5px;
+}
+
+.form-row .rjsf button:disabled {
+  background: lightgray;
+}
+
+.form-row .rjsf i.glyphicon {
+  display: none;
+}
+
+.form-row .rjsf .btn-add::after {
+  content: 'Add item';
+}
+
+.form-row .rjsf .array-item-move-up::after {
+  content: '⬆';
+}
+
+.form-row .rjsf .array-item-move-down::after {
+  content: '⬇';
+}
+
+.form-row .rjsf .array-item-remove::after {
+  content: '✘';
+}
+
+/* Fields */
+.form-row .rjsf .field-array .checkboxes {
+  display: inline-block;
+}
+
+.form-row .rjsf .field-radio-group label {
+  display: block;
+  width: auto;
+  height: 38px;
+  line-height: 38px;
+}
+
+.form-row .rjsf .field-radio-group span {
+  height: 38px;
+  line-height: 38px;
+}
+
+.form-row .rjsf .radio-inline > span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.form-row .rjsf .field-radio-group {
+  display: inline-block;
+  line-height: 38px;
+  vertical-align: top;
+}
+
+.form-row .rjsf .field-integer .field-integer {
+  height: 38px;
+  line-height: 38px;
+}
+
+.form-row .rjsf .field-integer .form-input .field-range-wrapper .range-view {
+  margin-left: 5px;
+}
+
+.form-row .rjsf .field-integer .form-input .field-range-wrapper .form-control {
+  height: 32px;
+  width: calc(100% - 200px);
+}
+
+.form-row .rjsf .field-boolean .form-input .checkbox {
+  height: 32px;
+}
+
+.form-row .rjsf .field-array .form-input select {
+  min-width: 200px;
+}
+
+.form-row .rjsf .list-inline .btn-clear,
+.form-row .rjsf .list-inline .btn-now {
+  margin: 4px;
+}
+
+.form-row .rjsf .list-inline li {
+  display: inline;
+}
+

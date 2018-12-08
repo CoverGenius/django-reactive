@@ -1,16 +1,16 @@
-<div id="{{ name }}_editor" style="height:500px;float:right;width:90%;"></div>
+<div id="{{ name }}_editor" style="width: 100%"></div>
 
-<textarea cols="40" id="id_{{ name }}" name="{{ name }}" rows="10" required="" style="display: none">
+<textarea id="id_{{ name }}" name="{{ name }}" required="" style="display: none">
   {{ data }}
 </textarea>
 
 <script>
-    (function() {
-
-        var Form = JSONSchemaForm.default;
-
-        ReactDOM.render((
-          React.createElement(Form, { schema: {{ schema|safe }}, formData:  {{ data|safe }} })
-        ), document.getElementById("{{ name }}_editor"));
-    })();
+  document.addEventListener("DOMContentLoaded", function () {
+    djangoReactiveRenderForm(
+      "{{ name }}",
+      {{ schema|safe }},
+      {{ ui_schema|safe }},
+      {{ data|safe }}
+    );
+  });
 </script>

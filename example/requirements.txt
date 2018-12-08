@@ -3,6 +3,7 @@
 
 Django>=2.0,<2.1
 psycopg2-binary>=2.7,<2.8
+jsonschema>=2.6,<2.7
 
 # Your app in editable mode.
 -e ../
