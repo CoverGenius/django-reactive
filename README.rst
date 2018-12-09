@@ -140,7 +140,7 @@ Features
 
 * React, RJSF and other JS assets are bundled with the package.
 * Integration with default Django admin theme.
-* Backend adn frontend validation.
+* Backend and frontend validation.
 
 Limitations
 -----------
