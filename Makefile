@@ -28,7 +28,7 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*~' -exec rm -f {} +
 
 lint: ## check style with flake8
-	flake8 django_react_json_schema_form tests
+	flake8 django_reactive tests
 
 test: ## run tests quickly with the default Python
 	python runtests.py tests
@@ -37,7 +37,7 @@ test-all: ## run tests on every Python version with tox
 	tox
 
 coverage: ## check code coverage quickly with the default Python
-	coverage run --source django_react_json_schema_form runtests.py tests
+	coverage run --source django_reactive runtests.py tests
 	coverage report -m
 	coverage html
 	open htmlcov/index.html
@@ -45,7 +45,7 @@ coverage: ## check code coverage quickly with the default Python
 docs: ## generate Sphinx HTML documentation, including API docs
 	rm -f docs/django-reactive.rst
 	rm -f docs/modules.rst
-	sphinx-apidoc -o docs/ django_react_json_schema_form
+	sphinx-apidoc -o docs/ django_reactive
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 	$(BROWSER) docs/_build/html/index.html

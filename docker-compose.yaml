@@ -11,7 +11,7 @@ services:
     ports:
     - 5432:5432
     environment:
-      POSTGRES_PASSWORD: example
-      POSTGRES_USER: example
-      POSTGRES_DB: example
+      POSTGRES_PASSWORD: ""
+      POSTGRES_USER: postgres
+      POSTGRES_DB: tests
       PGDATA: /var/lib/postgresql/data/pgdata

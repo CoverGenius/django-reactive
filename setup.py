@@ -47,7 +47,7 @@ history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 setup(
     name='django-reactive',
     version=version,
-    description="""Integrates react-json-schema-form in Django Forms.""",
+    description="""Django JSON form field on steroids using react-json-schema-form.""",
     long_description=readme + '\n\n' + history,
     author='Artem Kolesnikov',
     author_email='tyomo4ka@gmail.com',
