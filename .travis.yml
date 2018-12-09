@@ -4,9 +4,9 @@ services:
 matrix:
   fast_finish: true
   include:
-  - python: 3.6
+  - python: "3.6"
     env: TOX_ENV=py36-django-20
-  - python: 3.7
+  - python: "3.7"
     dist: xenial
     sudo: true
     env: TOX_ENV=py37-django-20
