@@ -15,12 +15,16 @@ class ReactJSONSchemaField(BaseJSONField):
         self.ui_schema = ui_schema
 
     def formfield(self, **kwargs):
+        defaults = {
+            'required': not self.blank,
+        }
+        defaults.update(**kwargs)
         return ReactJSONSchemaFormField(
             widget=ReactJSONSchemaFormWidget(
                 schema=self.schema,
                 ui_schema=self.ui_schema,
             ),
-            **kwargs
+            **defaults
         )
 
     def validate(self, value, model_instance):
