@@ -68,19 +68,34 @@ class TestReactJSONSchemaField(TestCase):
                 managed = False
                 app_label = 'django_reactive'
 
-            json_field = ReactJSONSchemaField(schema={'type': 'array'}, blank=True)
+            json_field = ReactJSONSchemaField(schema={
+                'type': 'object',
+                'required': ['test_field'],
+                'properties': {'test_field': {'type': 'string'}},
+            }, blank=True)
 
         class TestModelNotBlank(Model):
             class Meta:
                 managed = False
                 app_label = 'django_reactive'
 
-            json_field = ReactJSONSchemaField(schema={'type': 'array'}, blank=False)
+            json_field = ReactJSONSchemaField(schema={
+                'type': 'object',
+                'required': ['test_field'],
+                'properties': {'test_field': {'type': 'string'}},
+            }, blank=False)
 
         model = TestModelBlank(json_field=None)
+        model.full_clean()
+
+        model = TestModelBlank(json_field={})
+        model.full_clean()
+
+        model = TestModelBlank(json_field=[])
         model.full_clean()
 
         with self.assertRaises(ValidationError) as context:
             model = TestModelNotBlank(json_field=None)
             model.full_clean()
+
         self.assertEqual("{'json_field': ['This field cannot be null.']}", str(context.exception))
