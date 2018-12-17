@@ -61,3 +61,26 @@ class TestReactJSONSchemaField(TestCase):
         model.json_field = {}  # missed a required field
         with self.assertRaises(ValidationError):
             model.full_clean()
+
+    def test_blank(self):
+        class TestModelBlank(Model):
+            class Meta:
+                managed = False
+                app_label = 'django_reactive'
+
+            json_field = ReactJSONSchemaField(schema={'type': 'array'}, blank=True)
+
+        class TestModelNotBlank(Model):
+            class Meta:
+                managed = False
+                app_label = 'django_reactive'
+
+            json_field = ReactJSONSchemaField(schema={'type': 'array'}, blank=False)
+
+        model = TestModelBlank(json_field=None)
+        model.full_clean()
+
+        with self.assertRaises(ValidationError) as context:
+            model = TestModelNotBlank(json_field=None)
+            model.full_clean()
+        self.assertEqual("{'json_field': ['This field cannot be null.']}", str(context.exception))
