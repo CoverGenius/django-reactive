@@ -145,9 +145,10 @@ Features
 Limitations
 -----------
 
-* `Additional properties <https://github.com/mozilla-services/react-jsonschema-form#expandable-option>`_ feature of
-**RJSF** is not supported. To implement this behaviour you can define an array schema with one property serving as a key
-of the object and do transformation in your JSON class. An example will be provided later.
+* `Additional properties <https://github.com/mozilla-services/react-jsonschema-form#expandable-option>`_ ( a feature of RJSF) is not supported.
+
+To implement this behaviour you can define an array schema with one property serving as a key of the object and do
+transformation in your JSON class. An example will be provided later.
 
 Future development
 ------------------
