@@ -1,21 +1,27 @@
 language: python
 services:
-- postgresql
+  - postgresql
 matrix:
   fast_finish: true
   include:
-  - python: "3.6"
-    env: TOX_ENV=py36-django-20
-  - python: "3.7"
-    dist: xenial
-    sudo: true
-    env: TOX_ENV=py37-django-20
-install: pip install -r requirements_test.txt
+    - python: "3.6"
+      env: TOX_ENV=py36-django-22
+    - python: "3.7"
+      dist: xenial
+      sudo: true
+      env: TOX_ENV=py37-django-22
+    - python: "3.8"
+      env: TOX_ENV=py38-django-22
+install:
+  - pip install --upgrade pip
+  - pip install poetry
+  - poetry config --local virtualenvs.in-project true
+  - poetry install
 before_script:
-- psql -c 'create database tests;' -U postgres
+  - psql -c 'create database tests;' -U postgres
 script: tox -e $TOX_ENV
 after_success:
-- codecov -e TOX_ENV
+  - codecov -e TOX_ENV
 deploy:
   on:
     tags: true

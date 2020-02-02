@@ -14,8 +14,8 @@ class ReactJSONSchemaFormWidget(Widget):
             )
         }
         js = (
-            settings.STATIC_URL + 'dist/react-16.6.3.js',
-            settings.STATIC_URL + 'dist/react-dom-16.6.1.js',
+            settings.STATIC_URL + 'dist/react.js',
+            settings.STATIC_URL + 'dist/react-dom.js',
             settings.STATIC_URL + 'dist/react-jsonschema-form.js',
             settings.STATIC_URL + 'js/django_reactive.js',
         )

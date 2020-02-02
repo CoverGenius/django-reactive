@@ -5,7 +5,6 @@ import django_reactive.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -25,12 +24,15 @@ class Migration(migrations.Migration):
                 ('references', django_reactive.fields.ReactJSONSchemaField(default=dict)),
                 ('errors', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Errors')),
                 ('large', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Large')),
-                ('date_and_time', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Date and time')),
+                ('date_and_time', django_reactive.fields.ReactJSONSchemaField(
+                    default=dict, help_text='Date and time')),
                 ('validation', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Validation')),
                 ('file', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Files')),
                 ('alternatives', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Alternatives')),
-                ('property_dependencies', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Property dependencies')),
-                ('schema_dependencies', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Schema dependencies')),
+                ('property_dependencies',
+                 django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Property dependencies')),
+                ('schema_dependencies',
+                 django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Schema dependencies')),
             ],
         ),
     ]
