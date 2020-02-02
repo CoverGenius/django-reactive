@@ -1037,7 +1037,8 @@ class TestModel(models.Model):
             "properties": {
                 "unidirectional": {
                     "title": "Unidirectional",
-                    "src": "https://spacetelescope.github.io/understanding-json-schema/reference/object.html#dependencies",
+                    "src": "https://spacetelescope.github.io/understanding-json-schema"
+                           "/reference/object.html#dependencies",
                     "type": "object",
                     "properties": {
                         "name": {
@@ -1061,8 +1062,10 @@ class TestModel(models.Model):
                 },
                 "bidirectional": {
                     "title": "Bidirectional",
-                    "src": "https://spacetelescope.github.io/understanding-json-schema/reference/object.html#dependencies",
-                    "description": "Dependencies are not bidirectional, you can, of course, define the bidirectional dependencies explicitly.",
+                    "src": "https://spacetelescope.github.io/understanding-json-schema"
+                           "/reference/object.html#dependencies",
+                    "description": "Dependencies are not bidirectional, "
+                                   "you can, of course, define the bidirectional dependencies explicitly.",
                     "type": "object",
                     "properties": {
                         "name": {
@@ -1100,7 +1103,8 @@ class TestModel(models.Model):
             "type": "object",
             "properties": {
                 "simple": {
-                    "src": "https://spacetelescope.github.io/understanding-json-schema/reference/object.html#dependencies",
+                    "src": "https://spacetelescope.github.io/understanding-json-schema"
+                           "/reference/object.html#dependencies",
                     "title": "Simple",
                     "type": "object",
                     "properties": {
