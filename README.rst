@@ -135,6 +135,18 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
+Run example app
+---------------
+
+* docker-compose up
+* poetry install
+* ./example/manage.py makemigrations
+* ./example/manage.py migrate
+* ./example/manage.py createsuperuser
+* ./example/manage.py runserver
+* open http://127.0.0.1:8000/admin
+* Go to "Test model" to check a few examples
+
 Features
 --------
 

@@ -25,4 +25,6 @@ docs/_build
 
 # Docker-compose
 /data
+
+# Poetry
 poetry.lock
