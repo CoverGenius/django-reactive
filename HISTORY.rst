@@ -8,7 +8,7 @@ History
 
 * First release on PyPI.
 
-0.0.2 (2020-02-02)
+0.0.4 (2020-02-02)
 ++++++++++++++++++
 
 * Switched to poetry

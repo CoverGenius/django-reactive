@@ -10,6 +10,7 @@ pip-log.txt
 # Unit test / coverage reports
 .coverage
 .tox
+coverage.xml
 
 # Mr Developer
 .mr.developer.cfg
@@ -29,3 +30,4 @@ docs/_build
 # Poetry
 poetry.lock
 /dist
+poetry.toml
