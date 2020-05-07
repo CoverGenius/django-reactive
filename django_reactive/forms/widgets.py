@@ -1,6 +1,5 @@
 import json
 
-from django.conf import settings
 from django.forms.widgets import Widget
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
@@ -10,14 +9,14 @@ class ReactJSONSchemaFormWidget(Widget):
     class Media:
         css = {
             'all': (
-                settings.STATIC_URL + 'css/django_reactive.css',
+                'css/django_reactive.css',
             )
         }
         js = (
-            settings.STATIC_URL + 'dist/react.js',
-            settings.STATIC_URL + 'dist/react-dom.js',
-            settings.STATIC_URL + 'dist/react-jsonschema-form.js',
-            settings.STATIC_URL + 'js/django_reactive.js',
+            'dist/react.js',
+            'dist/react-dom.js',
+            'dist/react-jsonschema-form.js',
+            'js/django_reactive.js',
         )
 
     template_name = 'django_reactive.html'
