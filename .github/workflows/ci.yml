@@ -32,4 +32,4 @@ jobs:
       - run: pip install poetry
       - run: poetry config --local virtualenvs.in-project true
       - run: poetry install
-      - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres
+      - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
