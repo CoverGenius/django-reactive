@@ -7,24 +7,21 @@ jobs:
     name: pytest
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        python:
-          - "3.6"
-          - "3.7"
-          - "3.8"
-
+        python: [ 3.6, 3.7, 3.8 ]
+    services:
+      postgres:
+        image: postgres
     steps:
       - uses: actions/checkout@master
-      - name: install python
-        uses: abatilo/actions-poetry@v1.6.0
+      - name: setup python
+        uses: actions/setup-python@v2
         with:
-          python_version: ${{ matrix.php-version }}
-          poetry_version: 1.0.5
-          args: install
-      - name: Run pytest
-        uses: abatilo/actions-poetry@v1.5.0
-        with:
-          python_version: ${{ matrix.php-version }}
-          poetry_version: 1.0.5
-          args: run python -m pytest --cov=src --cov-branch --cov-fail-under=100 tests/
+          python-version: ${{ matrix.python }}
+          architecture: x64
+      - run: pip install --upgrade pip
+      - run: pip install poetry
+      - run: poetry config --local virtualenvs.in-project true
+      - run: poetry install
+#      - run: psql -c 'create database tests;' -U postgres
