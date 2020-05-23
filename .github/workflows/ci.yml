@@ -36,7 +36,8 @@ jobs:
       - run: poetry run coverage run --source django_reactive runtests.py
       # - if: startsWith(github.ref, 'refs/tags/v') # release
       - run: poetry build
-      - uses: pypa/gh-action-pypi-publish@master
+      - if: ${{ matrix.python == '3.7' }}
+        uses: pypa/gh-action-pypi-publish@master
         with:
-          password: ${{ secrets.test_pypi_password }}
+          password: ${{ secrets.pypi_password_test }}
           repository_url: https://test.pypi.org/legacy/
