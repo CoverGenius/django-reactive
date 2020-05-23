@@ -5,8 +5,8 @@ django-reactive
 .. image:: https://badge.fury.io/py/django-reactive.svg
     :target: https://badge.fury.io/py/django-reactive
 
-.. image:: https://travis-ci.org/tyomo4ka/django-reactive.svg?branch=master
-    :target: https://travis-ci.org/tyomo4ka/django-reactive
+.. image:: https://github.com/tyomo4ka/django-reactive/workflows/CI/badge.svg?branch=master
+    :target: https://github.com/tyomo4ka/django-reactive/actions
 
 .. image:: https://codecov.io/gh/tyomo4ka/django-reactive/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/tyomo4ka/django-reactive
