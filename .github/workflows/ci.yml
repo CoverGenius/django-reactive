@@ -33,3 +33,10 @@ jobs:
       - run: poetry config --local virtualenvs.in-project true
       - run: poetry install
       - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
+      - run: poetry run coverage run --source django_reactive runtests.py
+      # - if: startsWith(github.ref, 'refs/tags/v') # release
+      - run: poetry build
+      - uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.test_pypi_password }}
+          repository_url: https://test.pypi.org/legacy/
