@@ -37,7 +37,7 @@ from our practice can significantly reduce an amount of work you need to do to b
 In most cases developers would only need to define a JSON schema configuration for such field and optionally UI schema
 to modify UI for those forms.
 
-A simple use case is demosntrated below:
+A simple use case is demonstrated below:
 
 .. code-block:: python
 
@@ -135,17 +135,53 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
-Run example app
----------------
+Running the example
+-------------------
 
-* docker-compose up
-* poetry install
-* ./example/manage.py makemigrations
-* ./example/manage.py migrate
-* ./example/manage.py createsuperuser
-* ./example/manage.py runserver
-* open http://127.0.0.1:8000/admin
-* Go to "Test model" to check a few examples
+Build the docker image for the Django application in `example/`:
+
+* Run `docker-compose up -d`
+
+This will automatically create the database, run migrations, import the default superuser, and run the Django development server on `http://127.0.0.1:8000`.
+
+Django admin example
+====================
+
+* Open http://127.0.0.1:8000/admin/ and login with username `admin` and password `test`.
+* Go to the "Test models" admin section to see the example forms. 
+
+Normal Django view example
+==========================
+
+* Open http://127.0.0.1:8000/create/ to create a basic form example.
+
+You will be redirected to the detail view of the created object after the form saves.
+
+Usage outside of Django admin
+-----------------------------
+
+To use outside of the Django admin, the following are required in the template:
+
+* A call to the form media property using {{ form.media }}
+
+* An HTML submit input with `name="_save"`.
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Homepage</title>
+    </head>
+    <body>
+      {{ form.media }}
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Save" name="_save">
+      </form>
+    </body>
+    </html>
 
 Features
 --------

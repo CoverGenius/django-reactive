@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Test</title>
+</head>
+<body>
+  {{ form.media }}
+  <form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Save" class="default" name="_save">
+  </form>
+</body>
+</html>

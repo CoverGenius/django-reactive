@@ -1,8 +1,20 @@
-from django.conf.urls import url
 from django.contrib import admin
-from django.views.generic import RedirectView
+from django.urls import path
+
+from django.conf import settings
+from django.contrib.staticfiles import views
+
+from tester.views import TestModelFormView, TestModelDetailView
+
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^$', RedirectView.as_view(url='admin')),
+    path("admin/", admin.site.urls),
+    path("create/", TestModelFormView.as_view(), name="create"),
+    path("<int:pk>/", TestModelDetailView.as_view(), name="detail"),
 ]
+
+
+if settings.DEBUG:
+    from django.urls import re_path
+
+    urlpatterns += [re_path(r"^static/(?P<path>.*)$", views.serve)]
