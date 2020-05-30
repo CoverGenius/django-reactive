@@ -7,11 +7,32 @@ services:
     container_name: django-reactive
     restart: always
     volumes:
-    - "./data/pgdata:/var/lib/postgresql/data"
+      - "./data/pgdata:/var/lib/postgresql/data"
     ports:
-    - 5432:5432
+      - 5432:5432
     environment:
-      POSTGRES_PASSWORD: "password"
+      POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
-      POSTGRES_DB: tests
+      POSTGRES_DB: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build: .
+    command: >
+      sh -c "sleep 4;
+             python example/manage.py makemigrations &&
+             python example/manage.py migrate &&
+             python example/manage.py loaddata admin &&
+             python example/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
