@@ -37,7 +37,7 @@ from our practice can significantly reduce an amount of work you need to do to b
 In most cases developers would only need to define a JSON schema configuration for such field and optionally UI schema
 to modify UI for those forms.
 
-A simple use case is demonstrated below:
+A basic use case is demonstrated below:
 
 .. code-block:: python
 
@@ -46,12 +46,12 @@ A simple use case is demonstrated below:
     from django_reactive.fields import ReactJSONSchemaField
 
 
-    class TestModel(models.Model):
-        simple = ReactJSONSchemaField(
-            help_text='Simple',
+    class Registration(models.Model):
+        basic = ReactJSONSchemaField(
+            help_text="Registration form",
             schema={
-                "title": "A registration form",
-                "description": "A simple form example.",
+                "title": "Register now!",
+                "description": "Fill out the form to register.",
                 "type": "object",
                 "required": [
                     "firstName",
