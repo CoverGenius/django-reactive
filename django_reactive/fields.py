@@ -1,5 +1,5 @@
 import json
-from typing import Optional
+from typing import Optional, Union
 
 from django.contrib.postgres.fields import JSONField as BaseJSONField
 from django.core.exceptions import ValidationError
@@ -14,7 +14,10 @@ from .forms.widgets import ReactJSONSchemaFormWidget
 
 class ReactJSONSchemaField(BaseJSONField):
     def __init__(
-        self, schema: Optional[dict] = None, ui_schema: Optional[dict] = None, **kwargs
+        self,
+        schema: Optional[Union[dict, ModelMetaclass]] = None,
+        ui_schema: Optional[dict] = None,
+        **kwargs
     ):
         kwargs.setdefault("default", dict)
         super().__init__(**kwargs)
