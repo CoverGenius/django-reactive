@@ -2,6 +2,32 @@ from django.db import models
 
 from django_reactive.fields import ReactJSONSchemaField
 
+from .schemas import RegistrationSchema, TaskListSchema
+
+
+class PydanticTestModel(models.Model):
+    basic = ReactJSONSchemaField(
+        help_text="Pydantic basic example",
+        schema=RegistrationSchema,
+        ui_schema={
+            "first_name": {"ui:autofocus": True, "ui:emptyValue": ""},
+            "age": {
+                "ui:widget": "updown",
+                "ui:title": "Age of person",
+                "ui:description": "(earthian year)",
+            },
+            "bio": {"ui:widget": "textarea"},
+            "password": {"ui:widget": "password", "ui:help": "Hint: Make it strong!"},
+            "date": {"ui:widget": "alt-datetime"},
+            "telephone": {"ui:options": {"inputType": "tel"}},
+        },
+    )
+    nested = ReactJSONSchemaField(
+        help_text="Pydantic nested example",
+        schema=TaskListSchema,
+        ui_schema={"tasks": {"items": {"details": {"ui:widget": "textarea"}}}},
+    )
+
 
 class TestModel(models.Model):
     basic = ReactJSONSchemaField(
