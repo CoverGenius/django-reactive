@@ -33,9 +33,6 @@ class ReactJSONSchemaField(BaseJSONField):
         defaults = {"required": not self.blank}
         defaults.update(**kwargs)
 
-        if isinstance(self.schema, ModelMetaclass):
-            self.schema = self.schema.schema()
-
         return ReactJSONSchemaFormField(
             widget=ReactJSONSchemaFormWidget(
                 schema=self.schema, ui_schema=self.ui_schema
