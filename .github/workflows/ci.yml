@@ -9,7 +9,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ 3.6, 3.7, 3.8, 3.9 ]
+        python: [ 3.7, 3.8, 3.9 ]
+        django: [ ~2.2.16, ~3.0.10, ~3.1.2 ]
+
     services:
       postgres:
         image: postgres
@@ -32,6 +34,7 @@ jobs:
       - run: pip install poetry
       - run: poetry config --local virtualenvs.in-project true
       - run: poetry install
+      - run: poetry remove -D django; poetry add -D django=${{ matrix.django }}
       - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
       - run: poetry run coverage run --source django_reactive runtests.py
   publish:
