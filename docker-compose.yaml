@@ -3,8 +3,7 @@ version: "3.5"
 services:
 
   db:
-    image: postgres
-    container_name: django-reactive
+    image: postgres:12-alpine
     restart: always
     volumes:
       - "./data/pgdata:/var/lib/postgresql/data"
@@ -25,11 +24,11 @@ services:
   web:
     build: .
     command: >
-      sh -c "sleep 4;
-             python example/manage.py makemigrations &&
-             python example/manage.py migrate &&
-             python example/manage.py loaddata admin &&
-             python example/manage.py runserver 0.0.0.0:8000"
+      sh -c './wait-for db:5432 --
+          python example/manage.py makemigrations &&
+          python example/manage.py migrate &&
+          python example/manage.py loaddata admin &&
+          python example/manage.py runserver 0.0.0.0:8000'
     volumes:
       - .:/code
     ports:
