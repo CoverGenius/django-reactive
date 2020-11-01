@@ -16,7 +16,7 @@ keywords = ["django",
 
 
 [tool.poetry.dependencies]
-python = ">=3.6,<4"
+python = ">=3.7,<4"
 jsonschema = "^3.0"
 psycopg2-binary = "^2.7"
 django = "^2.2||^3.0"
