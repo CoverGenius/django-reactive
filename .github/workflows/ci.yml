@@ -34,7 +34,7 @@ jobs:
       - run: pip install poetry
       - run: poetry config --local virtualenvs.in-project true
       - run: poetry install
-      - run: poetry remove -D django; poetry add -D django=${{ matrix.django }}
+      - run: poetry remove django; poetry add django=${{ matrix.django }}
       - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
       - run: poetry run coverage run --source django_reactive runtests.py
   publish:
