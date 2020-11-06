@@ -7,22 +7,25 @@ from .forms.widgets import ReactJSONSchemaFormWidget
 
 
 class ReactJSONSchemaField(BaseJSONField):
-
-    def __init__(self, schema=None, ui_schema=None, **kwargs):
-        kwargs.setdefault('default', dict)
+    def __init__(self, schema=None, ui_schema=None, extra_css=None, extra_js=None, **kwargs):
+        kwargs.setdefault("default", dict)
         super(ReactJSONSchemaField, self).__init__(**kwargs)
         self.schema = schema
         self.ui_schema = ui_schema
+        self.extra_css = extra_css
+        self.extra_js = extra_js
 
     def formfield(self, **kwargs):
         defaults = {
-            'required': not self.blank,
+            "required": not self.blank,
         }
         defaults.update(**kwargs)
         return ReactJSONSchemaFormField(
             widget=ReactJSONSchemaFormWidget(
                 schema=self.schema,
                 ui_schema=self.ui_schema,
+                extra_css=self.extra_css,
+                extra_js=self.extra_js
             ),
             **defaults
         )
@@ -32,4 +35,4 @@ class ReactJSONSchemaField(BaseJSONField):
         try:
             validate(value, self.schema)
         except JSONSchemaValidationError:
-            raise ValidationError('This field has errors.')
+            raise ValidationError("This field has errors.")

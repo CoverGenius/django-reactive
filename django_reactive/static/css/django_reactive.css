@@ -103,6 +103,7 @@
 
 .form-row .rjsf .field-integer .form-input .field-range-wrapper .range-view {
   margin-left: 5px;
+  width: 220px;
 }
 
 .form-row .rjsf .field-integer .form-input .field-range-wrapper .form-control {
