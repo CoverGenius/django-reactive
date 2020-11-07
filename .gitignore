@@ -11,6 +11,7 @@ pip-log.txt
 .coverage
 .tox
 coverage.xml
+htmlcov
 
 # Mr Developer
 .mr.developer.cfg
