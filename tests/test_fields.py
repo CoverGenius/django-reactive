@@ -2,7 +2,7 @@ import pytest
 
 from django.core.exceptions import ValidationError
 
-from testapp.models import SchemaModel, ExtraMediaSchemaModel
+from testapp.models import SchemaModel, ExtraMediaSchemaModel, HookedSchemaModel
 
 
 @pytest.mark.django_db
@@ -50,3 +50,15 @@ def test_extra_form_media():
         "js/django_reactive.js",
         "path/to/my/js/file.js",
     ]
+
+
+@pytest.mark.django_db
+def test_hooks():
+    obj = HookedSchemaModel(json_field={"test_field": "testing"})
+    widget = obj._meta.get_field("json_field").formfield().widget
+    ui_schema = widget.ui_schema
+    schema = widget.schema
+    max_length = schema["properties"]["test_field"]["maxLength"]
+
+    assert ui_schema["test_field"]["ui:help"] == f"Field maximum: {max_length} characters"
+    assert ui_schema["another_test_field"] == {"ui:disabled": True}

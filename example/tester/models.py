@@ -3,6 +3,87 @@ from django.db import models
 from django_reactive.fields import ReactJSONSchemaField
 
 
+TODO_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "description": {"title": "Description", "type": "string"},
+        "task_lists": {
+            "title": "Task lists",
+            "type": "array",
+            "uniqueItems": True,
+            "items": {"$ref": "#/definitions/TaskList"},
+        },
+    },
+    "required": ["description", "task_lists"],
+    "definitions": {
+        "Task": {
+            "title": "Task",
+            "type": "object",
+            "properties": {
+                "name": {"title": "Name", "type": "string"},
+                "task_type": {"type": "string", "enum": []},
+            },
+            "required": ["name"],
+        },
+        "TaskList": {
+            "title": "Task lists",
+            "type": "object",
+            "properties": {
+                "name": {"title": "Name", "type": "string"},
+                "tasks": {"title": "Tasks", "type": "array", "items": {"$ref": "#/definitions/Task"}},
+            },
+            "required": ["name", "tasks"],
+        },
+    },
+}
+
+
+TODO_UI_SCHEMA = {
+    "ui:title": "Todo lists",
+    "description": {
+        "ui:autofocus": True,
+        "ui:emptyValue": "",
+        "ui:help": "A summary of all the tasks lists",
+        "ui:widget": "textarea",
+    },
+    "task_lists": {
+        "items": {
+            "classNames": "dynamic-task-list",
+            "name": {"ui:help": "A descriptive name for the task list"},
+            "tasks": {
+                "items": {
+                    "classNames": "dynamic-task-item",
+                    "name": {"ui:help": "A descriptive name for the task"},
+                    "task_type": {
+                        "classNames": "dynamic-task-field",
+                        "ui:help": "The task type",
+                        "ui:widget": "select",
+                    },
+                }
+            },
+        },
+    },
+}
+
+
+def set_task_types(schema, ui_schema):
+    task_types = ["A", "B", "C", "D"]
+    schema["definitions"]["Task"]["properties"]["task_type"]["enum"] = task_types
+    ui_schema["tasks_list"]["items"]["task_type"]["ui:help"] = f"Select 1 of {len(task_types)} task types"
+
+
+class Todo(models.Model):
+    title = models.CharField(max_length=255)
+    todos = ReactJSONSchemaField(
+        help_text="Dynamic",
+        schema=TODO_SCHEMA,
+        ui_schema=TODO_UI_SCHEMA,
+        hooks=[set_task_types],
+        extra_css=["css/extra.css"],
+        extra_js=["js/extra.js"],
+    )
+
+
 class TestModel(models.Model):
     basic = ReactJSONSchemaField(
         help_text="Basic",
@@ -78,9 +159,7 @@ class TestModel(models.Model):
             "definitions": {
                 "Thing": {
                     "type": "object",
-                    "properties": {
-                        "name": {"type": "string", "default": "Default name"}
-                    },
+                    "properties": {"name": {"type": "string", "default": "Default name"}},
                 }
             },
             "type": "object",
@@ -170,12 +249,8 @@ class TestModel(models.Model):
             },
             "unorderable": {"ui:options": {"orderable": False}},
             "unremovable": {"ui:options": {"removable": False}},
-            "noToolbar": {
-                "ui:options": {"addable": False, "orderable": False, "removable": False}
-            },
-            "fixedNoToolbar": {
-                "ui:options": {"addable": False, "orderable": False, "removable": False}
-            },
+            "noToolbar": {"ui:options": {"addable": False, "orderable": False, "removable": False}},
+            "fixedNoToolbar": {"ui:options": {"addable": False, "orderable": False, "removable": False}},
         },
     )
 
@@ -725,9 +800,7 @@ class TestModel(models.Model):
                 "fixedArrayOfConditionals": {
                     "title": "Fixed array of conditionals",
                     "type": "array",
-                    "items": [
-                        {"title": "Primary person", "$ref": "#/definitions/person"}
-                    ],
+                    "items": [{"title": "Primary person", "$ref": "#/definitions/person"}],
                     "additionalItems": {
                         "title": "Additional person",
                         "$ref": "#/definitions/person",
@@ -749,11 +822,7 @@ class TestModel(models.Model):
                     "dependencies": {
                         "Do you have any pets?": {
                             "oneOf": [
-                                {
-                                    "properties": {
-                                        "Do you have any pets?": {"enum": ["No"]}
-                                    }
-                                },
+                                {"properties": {"Do you have any pets?": {"enum": ["No"]}}},
                                 {
                                     "properties": {
                                         "Do you have any pets?": {"enum": ["Yes: One"]},
@@ -763,12 +832,8 @@ class TestModel(models.Model):
                                 },
                                 {
                                     "properties": {
-                                        "Do you have any pets?": {
-                                            "enum": ["Yes: More than one"]
-                                        },
-                                        "Do you want to get rid of any?": {
-                                            "type": "boolean"
-                                        },
+                                        "Do you have any pets?": {"enum": ["Yes: More than one"]},
+                                        "Do you want to get rid of any?": {"type": "boolean"},
                                     },
                                     "required": ["Do you want to get rid of any?"],
                                 },
