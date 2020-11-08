@@ -55,10 +55,6 @@ def test_extra_form_media():
 @pytest.mark.django_db
 def test_hooks():
     obj = HookedSchemaModel(json_field={"test_field": "testing"})
-    widget = obj._meta.get_field("json_field").formfield().widget
-    ui_schema = widget.ui_schema
-    schema = widget.schema
-    max_length = schema["properties"]["test_field"]["maxLength"]
+    obj.full_clean()
 
-    assert ui_schema["test_field"]["ui:help"] == f"Field maximum: {max_length} characters"
-    assert ui_schema["another_test_field"] == {"ui:disabled": True}
+    # TODO: Test the widget render method output specifically

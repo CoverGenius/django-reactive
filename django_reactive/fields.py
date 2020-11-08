@@ -7,19 +7,10 @@ from .forms.widgets import ReactJSONSchemaFormWidget
 
 
 class ReactJSONSchemaField(BaseJSONField):
-    def __init__(
-        self,
-        schema=None,
-        ui_schema=None,
-        hooks=None,
-        extra_css=None,
-        extra_js=None,
-        **kwargs
-    ):
+    def __init__(self, schema=None, ui_schema=None, hooks=None, extra_css=None, extra_js=None, **kwargs):
         kwargs.setdefault("default", dict)
         super(ReactJSONSchemaField, self).__init__(**kwargs)
-        if hooks:
-            [_(schema, ui_schema) for _ in hooks]
+        self.hooks = hooks
         self.schema = schema
         self.ui_schema = ui_schema
         self.extra_css = extra_css
@@ -34,10 +25,11 @@ class ReactJSONSchemaField(BaseJSONField):
             widget=ReactJSONSchemaFormWidget(
                 schema=self.schema,
                 ui_schema=self.ui_schema,
+                hooks=self.hooks,
                 extra_css=self.extra_css,
                 extra_js=self.extra_js,
             ),
-            **defaults
+            **defaults,
         )
 
     def validate(self, value, model_instance):
