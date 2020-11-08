@@ -14,10 +14,10 @@ class ReactJSONSchemaFormWidget(Widget):
 
     template_name = "django_reactive.html"
 
-    def __init__(self, schema, ui_schema=None, hooks=None, extra_css=None, extra_js=None, **kwargs):
+    def __init__(self, schema, ui_schema=None, on_render=None, extra_css=None, extra_js=None, **kwargs):
         self.schema = schema
         self.ui_schema = ui_schema
-        self.hooks = hooks
+        self.on_render = on_render
         self.extra_css = extra_css
         self.extra_js = extra_js
         super(ReactJSONSchemaFormWidget, self).__init__(**kwargs)
@@ -39,9 +39,9 @@ class ReactJSONSchemaFormWidget(Widget):
         return Media(css={"all": css}, js=js)
 
     def render(self, name, value, attrs=None, renderer=None):
-        if self.hooks:
+        if self.on_render:
             try:
-                [_(self.schema, self.ui_schema) for _ in self.hooks]
+                self.on_render(self.schema, self.ui_schema)
             except BaseException as exc:
                 logger.error("Error applying JSON schema hooks: %s", exc, exc_info=True)
         context = {

@@ -2,7 +2,7 @@ import pytest
 
 from django.core.exceptions import ValidationError
 
-from testapp.models import SchemaModel, ExtraMediaSchemaModel, HookedSchemaModel
+from testapp.models import SchemaModel, ExtraMediaSchemaModel, RenderMethodSchemaModel
 
 
 @pytest.mark.django_db
@@ -54,7 +54,7 @@ def test_extra_form_media():
 
 @pytest.mark.django_db
 def test_hooks():
-    obj = HookedSchemaModel(json_field={"test_field": "testing"})
+    obj = RenderMethodSchemaModel(json_field={"test_field": "testing"})
     obj.full_clean()
 
     # TODO: Test the widget render method output specifically

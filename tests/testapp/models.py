@@ -11,13 +11,7 @@ def modify_max_length(schema, ui_schema):
     ui_schema["test_field"]["ui:help"] = f"Field maximum: {max_length} characters"
 
 
-def maybe_disable_field(schema, ui_schema):
-    some_condition = 1
-    if some_condition:
-        ui_schema["another_test_field"] = {"ui:disabled": True}
-
-
-class HookedSchemaModel(models.Model):
+class RenderMethodSchemaModel(models.Model):
     json_field = ReactJSONSchemaField(
         schema={
             "title": "TestSchema",
@@ -38,7 +32,7 @@ class HookedSchemaModel(models.Model):
         ui_schema={
             "test_field": {"ui:help": "Field maximum: 10 characters"},
         },
-        hooks=[modify_max_length, maybe_disable_field],
+        on_render=modify_max_length,
     )
 
 

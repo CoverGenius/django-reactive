@@ -15,7 +15,7 @@ class Todo(models.Model):
         help_text="Task lists",
         schema=TODO_SCHEMA,
         ui_schema=TODO_UI_SCHEMA,
-        hooks=[set_task_types],
+        on_render=set_task_types,
         extra_css=["css/extra.css"],
         extra_js=["js/extra.js"],
     )
