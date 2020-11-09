@@ -194,7 +194,7 @@ Schema fields accept the following parameters for additional configuration:
 
 Extra CSS and JSS files should be accessible using Django's staticfiles configurations and passed as a list of strings.
 
-Render methods require both ``schema`` and ``ui_schema`` as the only arguments to be modified using custom behaviour to dynamically modify the schema when rendering the widget. This method does not return anything.
+Render methods require both ``schema`` and ``ui_schema`` as arguments to allow dynamic schema modification when rendering the widget. An optional ``instance`` keyword argument may also be used for referencing an object instance (must be set on the widget in the form). This method does not return anything.
 
 Example usage
 =============
@@ -203,7 +203,7 @@ The example below demonstrates a use-case in which the options available for a p
 
 .. code-block:: python
 
-    def custom_method_to_update_schema(schema, ui_schema):
+    def set_task_types(schema, ui_schema):
         from todos.models import TaskType
     
         task_types = list(TaskType.objects.all().values_list("name", flat=True))
@@ -226,7 +226,26 @@ The example below demonstrates a use-case in which the options available for a p
             extra_css=["css/extra.css"],
             extra_js=["js/extra.js"],
         )
+
+Schema model form class
+=======================
+
+The form class ``ReactJSONSchemaModelForm`` (subclassed from Django's ``ModelForm``) can be used to provide the model form's instance object to the schema field widgets:
+
+.. code-block:: python
+
+    from django_reactive.forms import ReactJSONSchemaModelForm
+    class MyModelForm(ReactJSONSchemaModelForm):
+        ...
+
+This allows the ``on_render`` method set for a schema field to reference the instance like this:
+
+.. code-block:: python
     
+    def update_the_schema(schema, ui_schema, instance=None):
+        if instance and instance.some_condition:
+            ui_schema["my_schema_prop"]["ui:help"] = "Some extra help text"
+
 Features
 --------
 

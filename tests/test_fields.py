@@ -2,7 +2,12 @@ import pytest
 
 from django.core.exceptions import ValidationError
 
-from testapp.models import SchemaModel, ExtraMediaSchemaModel, RenderMethodSchemaModel
+from testapp.models import (
+    SchemaModel,
+    ExtraMediaSchemaModel,
+    RenderMethodSchemaModel,
+    RenderMethodWithObjectSchemaModel,
+)
 
 
 @pytest.mark.django_db
@@ -83,3 +88,17 @@ def test_on_render():
 
     assert widget.schema["properties"]["test_field"]["maxLength"] > initial_max_length
     assert int(widget.ui_schema["test_field"]["ui:help"].split()[1]) > initial_max_length
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("condition", [True, False])
+def test_on_render_object(condition):
+    obj = RenderMethodWithObjectSchemaModel.objects.create(
+        is_some_condition=condition, json_field={"test_field": "testing"}
+    )
+    widget = obj._meta.get_field("json_field").formfield().widget
+    widget.on_render_object = obj
+    widget.mutate()
+
+    help_text = "Condition is set" if condition else "Condition is unset"
+    assert widget.ui_schema == {"test_field": {"ui:help": help_text}}
