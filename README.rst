@@ -194,12 +194,12 @@ Schema fields accept the following parameters for additional configuration:
 
 Extra CSS and JSS files should be accessible using Django's staticfiles configurations and passed as a list of strings.
 
-Render methods require both ``schema`` and ``ui_schema`` as the only arguments to be modified according using custom behaviour and do not return anything. This method will run when the widget for the field is being rendered.
+Render methods require both ``schema`` and ``ui_schema`` as the only arguments to be modified using custom behaviour to dynamically modify the schema when rendering the widget. This method does not return anything.
 
 Example usage
 =============
 
-The example below demonstrates a use-case in which the options available for a particular field may be dynamic and unavailable in the initial schema definition. These would be populated at render-time and be made available in the form UI.
+The example below demonstrates a use-case in which the options available for a particular field may be dynamic and unavailable in the initial schema definition. These would be populated at render-time and made available in the form UI.
 
 .. code-block:: python
 
