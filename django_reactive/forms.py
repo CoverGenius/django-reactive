@@ -13,6 +13,4 @@ class ReactJSONSchemaModelForm(ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field_value in self.fields.items():
             if isinstance(field_value, ReactJSONSchemaFormField):
-                print(field_name)
                 self.fields[field_name].widget.on_render_object = on_render_object
-                print(on_render_object)
