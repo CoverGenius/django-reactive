@@ -36,7 +36,7 @@ jobs:
       - run: poetry install
       - run: poetry remove django; poetry add django=${{ matrix.django }}
       - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
-      - run: poetry run coverage run --source django_reactive runtests.py
+      - run: poetry run ./bin/test
   publish:
     if: startsWith(github.event.ref, 'refs/tags')
     name: publish

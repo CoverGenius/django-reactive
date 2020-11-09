@@ -183,12 +183,58 @@ To use outside of the Django admin, the following are required in the template:
     </body>
     </html>
 
+Optional configuration
+----------------------
+
+Schema fields accept the following parameters for additional configuration:
+
+* ``extra_css``: Include additional static CSS files available in the widget.
+* ``extra_js``: Include additional static JavaScript files available in the widget.
+* ``on_render``: A python method to make dynamic schema modifications at render-time.
+
+Extra CSS and JSS files should be accessible using Django's staticfiles configurations and passed as a list of strings.
+
+Render methods require both ``schema`` and ``ui_schema`` as the only arguments to be modified according using custom behaviour and do not return anything. This method will run when the widget for the field is being rendered.
+
+Example usage
+=============
+
+The example below demonstrates a use-case in which the options available for a particular field may be dynamic and unavailable in the initial schema definition. These would be populated at render-time and be made available in the form UI.
+
+.. code-block:: python
+
+    def custom_method_to_update_schema(schema, ui_schema):
+        from todos.models import TaskType
+    
+        task_types = list(TaskType.objects.all().values_list("name", flat=True))
+        schema["definitions"]["Task"]["properties"]["task_type"]["enum"] = task_types
+        ui_schema["task_lists"]["items"]["tasks"]["items"]["task_type"][
+            "ui:help"
+        ] = f"Select 1 of {len(task_types)} task types"
+    
+    class Todo(models.Model):
+        """
+        A collection of task lists for a todo.
+        """
+    
+        name = models.CharField(max_length=255)
+        task_lists = ReactJSONSchemaField(
+            help_text="Task lists",
+            schema=TODO_SCHEMA,
+            ui_schema=TODO_UI_SCHEMA,
+            on_render=set_task_types,
+            extra_css=["css/extra.css"],
+            extra_js=["js/extra.js"],
+        )
+    
 Features
 --------
 
 * React, RJSF and other JS assets are bundled with the package.
 * Integration with default Django admin theme.
 * Backend and frontend validation.
+* Configurable static media assets
+* Dynamic schema mutation in widget renders
 
 Limitations
 -----------
