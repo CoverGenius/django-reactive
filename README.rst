@@ -183,12 +183,77 @@ To use outside of the Django admin, the following are required in the template:
     </body>
     </html>
 
+Optional configuration
+----------------------
+
+Schema fields accept the following parameters for additional configuration:
+
+* ``extra_css``: Include additional static CSS files available in the widget.
+* ``extra_js``: Include additional static JavaScript files available in the widget.
+* ``on_render``: A python method to make dynamic schema modifications at render-time.
+
+Extra CSS and JSS files should be accessible using Django's staticfiles configurations and passed as a list of strings.
+
+Render methods require both ``schema`` and ``ui_schema`` as arguments to allow dynamic schema modification when rendering the widget. An optional ``instance`` keyword argument may also be used for referencing an object instance (must be set on the widget in the form). This method does not return anything.
+
+Example usage
+=============
+
+The example below demonstrates a use-case in which the options available for a particular field may be dynamic and unavailable in the initial schema definition. These would be populated at render-time and made available in the form UI.
+
+.. code-block:: python
+
+    def set_task_types(schema, ui_schema):
+        from todos.models import TaskType
+    
+        task_types = list(TaskType.objects.all().values_list("name", flat=True))
+        schema["definitions"]["Task"]["properties"]["task_type"]["enum"] = task_types
+        ui_schema["task_lists"]["items"]["tasks"]["items"]["task_type"][
+            "ui:help"
+        ] = f"Select 1 of {len(task_types)} task types"
+    
+    class Todo(models.Model):
+        """
+        A collection of task lists for a todo.
+        """
+    
+        name = models.CharField(max_length=255)
+        task_lists = ReactJSONSchemaField(
+            help_text="Task lists",
+            schema=TODO_SCHEMA,
+            ui_schema=TODO_UI_SCHEMA,
+            on_render=set_task_types,
+            extra_css=["css/extra.css"],
+            extra_js=["js/extra.js"],
+        )
+
+Schema model form class
+=======================
+
+The form class ``ReactJSONSchemaModelForm`` (subclassed from Django's ``ModelForm``) can be used to provide the model form's instance object to the schema field widgets:
+
+.. code-block:: python
+
+    from django_reactive.forms import ReactJSONSchemaModelForm
+    class MyModelForm(ReactJSONSchemaModelForm):
+        ...
+
+This allows the ``on_render`` method set for a schema field to reference the instance like this:
+
+.. code-block:: python
+    
+    def update_the_schema(schema, ui_schema, instance=None):
+        if instance and instance.some_condition:
+            ui_schema["my_schema_prop"]["ui:help"] = "Some extra help text"
+
 Features
 --------
 
 * React, RJSF and other JS assets are bundled with the package.
 * Integration with default Django admin theme.
 * Backend and frontend validation.
+* Configurable static media assets
+* Dynamic schema mutation in widget renders
 
 Limitations
 -----------

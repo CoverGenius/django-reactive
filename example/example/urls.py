@@ -9,8 +9,8 @@ from tester.views import TestModelFormView, TestModelDetailView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("create/", TestModelFormView.as_view(), name="create"),
-    path("<int:pk>/", TestModelDetailView.as_view(), name="detail"),
+    path("tester/create/", TestModelFormView.as_view(), name="create"),
+    path("tester/<int:pk>/", TestModelDetailView.as_view(), name="detail"),
 ]
 
 
