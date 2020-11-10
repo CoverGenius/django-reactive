@@ -20,7 +20,7 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 5s
@@ -39,7 +39,7 @@ jobs:
       - run: poetry config --local virtualenvs.in-project true
       - run: poetry install
       - run: poetry remove django; poetry add django=${{ matrix.django }}
-      - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
+      - run: PGPASSWORD=postgres psql -c 'create database tests;' -U postgres -h localhost -p 5432
       - run: poetry run ./bin/test
 
   publish:
