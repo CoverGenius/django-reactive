@@ -16,7 +16,7 @@ History
 * Updated some other dependencies
 * Added support for Python 3.8
 
-0.0.7 (2020-11-11)
+0.0.8 (2020-11-11)
 ++++++++++++++++++
 
 * Added *extra_css* and *extra_js* config options to ReactJSONSchemaField class
