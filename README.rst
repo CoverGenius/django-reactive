@@ -18,26 +18,28 @@ Motivation
 ----------
 
 `JSON types <https://www.postgresql.org/docs/10/datatype-json.html>`_ is a cool feature of
-Postgres that allows combining both relational and non-relational approaches to storing data together. In most cases
-it would lead to a simpler database design.
+Postgres that allows combining both relational and non-relational approaches to storing data. In most cases
+it leads to a simpler database design.
 
-The `JSONField  <https://docs.djangoproject.com/en/2.1/ref/contrib/postgres/fields/#jsonfield>`_ in Django provides a
-nice way of integrating **json** and **jsonb** Postgres types inside the ORM. ORM can even utilise JSON fields
-to perform database queries. **jsonb** type also offers indexing for JSON documents. That makes it a powerful
-tool in the application design and opens a wide range of use cases, e.g. polymorphic behaviour, storing complex
-hierarchies and lists of related entities.
+The `JSONField <https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/fields/#jsonfield>`_ in Django provides a
+nice way of using **json** and **jsonb** Postgres types in the model classes. ORM can even allow you to perform queries
+against the data stored inside the JSON structure. Moreover, it is possible to use
+`GIN indexes https://www.postgresql.org/docs/12/datatype-json.html#JSON-INDEXING`_ with **jsonb** types in Postgres, what
+makes it a useful tool in the application design and opens a wide range of possibilities such as polymorphic behaviour,
+storing complex hierarchies and lists of related entities, etc.
 
-However, the main limitation of JSONField in Django is that it does not offer a good way of managing such objects in
-the default admin UI. Defining JSON objects inside the textarea is not practical for most use cases. django-reactive
-tries to address this problem by offering an integration between JSONField and the awesome
-`react-jsonschema-form <https://github.com/mozilla-services/react-jsonschema-form>`_ (RJSF) JavaScript library.
-It also uses Python `jsonschema <https://github.com/Julian/jsonschema>` library for backend validation. Such integration
-from our practice can significantly reduce an amount of work you need to do to build custom forms for JSONField types.
+However, the main limitation of JSONField in Django is a lack of good support of UI for JSON structures as defining JSON objects
+inside the textarea inputs is not practical for most use cases. django-reactive tries to address this problem by offering an
+integration between JSONField and the awesome `react-jsonschema-form <https://github.com/mozilla-services/react-jsonschema-form>`_
+(RJSF) JavaScript library.
 
-In most cases developers would only need to define a JSON schema configuration for such field and optionally UI schema
-to modify UI for those forms.
+django-reactive also uses Python `jsonschema <https://github.com/Julian/jsonschema>` library for backend validation. Such integration
+can significantly reduce the amount of work you need to contribute into building custom forms for JSONField types.
 
-A basic use case is demonstrated below:
+In most cases it only requires a JSON schema configuration for such field and optionally a UI schema
+to modify some representation parameters.
+
+A basic example of this is demonstrated below:
 
 .. code-block:: python
 
