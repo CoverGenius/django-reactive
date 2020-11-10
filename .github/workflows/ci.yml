@@ -1,6 +1,10 @@
 name: CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
   pytest:
@@ -37,6 +41,7 @@ jobs:
       - run: poetry remove django; poetry add django=${{ matrix.django }}
       - run: PGPASSWORD=password psql -c 'create database tests;' -U postgres -h localhost -p 5432
       - run: poetry run ./bin/test
+
   publish:
     if: startsWith(github.event.ref, 'refs/tags')
     name: publish
