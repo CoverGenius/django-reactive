@@ -131,7 +131,7 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        'django_reactive.apps.DjangoReactJsonSchemaFormConfig',
+        'django_reactive',
         ...
     )
 
@@ -148,7 +148,7 @@ Django admin example
 ====================
 
 * Open http://127.0.0.1:8000/admin/ and login with username `admin` and password `test`.
-* Go to the "Test models" admin section to see the example forms. 
+* Go to the "Test models" admin section to see the example forms.
 
 Normal Django view example
 ==========================
@@ -205,18 +205,18 @@ The example below demonstrates a use-case in which the options available for a p
 
     def set_task_types(schema, ui_schema):
         from todos.models import TaskType
-    
+
         task_types = list(TaskType.objects.all().values_list("name", flat=True))
         schema["definitions"]["Task"]["properties"]["task_type"]["enum"] = task_types
         ui_schema["task_lists"]["items"]["tasks"]["items"]["task_type"][
             "ui:help"
         ] = f"Select 1 of {len(task_types)} task types"
-    
+
     class Todo(models.Model):
         """
         A collection of task lists for a todo.
         """
-    
+
         name = models.CharField(max_length=255)
         task_lists = ReactJSONSchemaField(
             help_text="Task lists",
@@ -241,7 +241,7 @@ The form class ``ReactJSONSchemaModelForm`` (subclassed from Django's ``ModelFor
 This allows the ``on_render`` method set for a schema field to reference the instance like this:
 
 .. code-block:: python
-    
+
     def update_the_schema(schema, ui_schema, instance=None):
         if instance and instance.some_condition:
             ui_schema["my_schema_prop"]["ui:help"] = "Some extra help text"
