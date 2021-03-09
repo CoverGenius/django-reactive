@@ -1,13 +1,26 @@
-from django.contrib.postgres.fields import JSONField as BaseJSONField
 from django.core.exceptions import ValidationError
 from jsonschema import validate, ValidationError as JSONSchemaValidationError
 
 from .widget.fields import ReactJSONSchemaFormField
 from .widget.widgets import ReactJSONSchemaFormWidget
 
+try:
+    # DJANGO 3.1
+    from django.db.models import JSONField as BaseJSONField
+except ImportError:
+    from django.contrib.postgres.fields import JSONField as BaseJSONField
+
 
 class ReactJSONSchemaField(BaseJSONField):
-    def __init__(self, schema=None, ui_schema=None, on_render=None, extra_css=None, extra_js=None, **kwargs):
+    def __init__(
+        self,
+        schema=None,
+        ui_schema=None,
+        on_render=None,
+        extra_css=None,
+        extra_js=None,
+        **kwargs
+    ):
         kwargs.setdefault("default", dict)
         super(ReactJSONSchemaField, self).__init__(**kwargs)
         self.schema = schema
