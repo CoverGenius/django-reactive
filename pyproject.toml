@@ -22,7 +22,7 @@ psycopg2-binary = "^2.7"
 django = "^2.2||^3.0"
 pytest = "^6.1.2"
 pytest-cov = "^2.10.1"
-pytest-django = "^4.1.0"
+pytest-django = "^4.1"
 
 
 [tool.poetry.dev-dependencies]
