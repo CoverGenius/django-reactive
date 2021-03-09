@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from .fields import ReactJSONSchemaFormField
+from django_reactive.widget.fields import ReactJSONSchemaFormField
 
 
 class ReactJSONSchemaModelForm(ModelForm):
@@ -12,5 +12,5 @@ class ReactJSONSchemaModelForm(ModelForm):
         on_render_object = kwargs.get("instance", None)
         super().__init__(*args, **kwargs)
         for field_name, field_value in self.fields.items():
-            if isinstance(field_value, django_reactive.forms.fields.ReactJSONSchemaFormField):
+            if isinstance(field_value, ReactJSONSchemaFormField):
                 self.fields[field_name].widget.on_render_object = on_render_object
