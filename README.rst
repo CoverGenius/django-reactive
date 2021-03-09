@@ -24,7 +24,7 @@ it leads to a simpler database design.
 The `JSONField <https://docs.djangoproject.com/en/3.1/ref/contrib/postgres/fields/#jsonfield>`_ in Django provides a
 nice way of using **json** and **jsonb** Postgres types in the model classes. ORM can even allow you to perform queries
 against the data stored inside the JSON structure. Moreover, it is possible to use
-`GIN indexes https://www.postgresql.org/docs/12/datatype-json.html#JSON-INDEXING`_ with **jsonb** types in Postgres, what
+`GIN indexes <https://www.postgresql.org/docs/12/datatype-json.html#JSON-INDEXING>`_ with **jsonb** types in Postgres, what
 makes it a useful tool in the application design and opens a wide range of possibilities such as polymorphic behaviour,
 storing complex hierarchies and lists of related entities, etc.
 
