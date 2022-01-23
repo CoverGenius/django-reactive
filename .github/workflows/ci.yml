@@ -45,7 +45,7 @@ jobs:
       - run: pip install poetry
       - run: poetry config --local virtualenvs.in-project true
       - run: poetry install
-      - run: poetry remove django; poetry add django=${{ matrix.django }}
+      - run: pip install -U django==${{ matrix.django }}
       - run: PGPASSWORD=postgres psql -c 'create database tests;' -U postgres -h localhost -p 5432
       - run: poetry run ./bin/test
 
