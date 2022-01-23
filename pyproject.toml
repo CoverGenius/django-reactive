@@ -19,19 +19,16 @@ keywords = ["django",
 python = ">=3.7,<4"
 jsonschema = "^3.0"
 psycopg2-binary = "^2.7"
-django = "^2.2||^3.0"
-pytest = "^6.1.2"
-pytest-cov = "^2.10.1"
-pytest-django = "^4.1"
+django = "^2.2||^3.0||^4.0"
 
 
 [tool.poetry.dev-dependencies]
 bump2version = "^1.0"
-coverage = "^5.3"
 mock = "^4.0"
 flake8 = "^3.8"
-tox = "^3.20"
-codecov = "^2.1"
+pytest = "^6.2"
+pytest-cov = "^3.0"
+pytest-django = "^4.5"
 
 
 [build-system]
