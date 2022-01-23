@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ 3.7, 3.8, 3.9, 3.10 ]
-        django: [ 2.2.26, 3.2.11, 4.0.1 ]
+        python: [ "3.7", "3.8", "3.9", "3.10" ]
+        django: [ "2.2.26", "3.2.11", "4.0.1" ]
         exclude:
         # excludes Django 4 on Python 3.7
         - python: 3.7
