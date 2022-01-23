@@ -15,8 +15,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ 3.7, 3.8, 3.9 ]
-        django: [ ~2.2.16, ~3.0.10, ~3.1.2 ]
+        python: [ 3.7, 3.8, 3.9, 3.10 ]
+        django: [ 2.2.26, 3.2.11, 4.0.1 ]
 
     services:
       postgres:
@@ -30,6 +30,7 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v2
@@ -53,7 +54,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
           architecture: x64
       - run: pip install --upgrade pip
       - run: pip install poetry
