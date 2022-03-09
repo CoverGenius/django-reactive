@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-reactive"
-version = "0.0.10"
+version = "0.0.11"
 description = "Django JSON form field on steroids using react-json-schema-form"
 authors = ["Artem Kolesnikov <tyomo4ka@gmail.com>"]
 license = "MIT"
