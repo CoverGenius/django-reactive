@@ -12,15 +12,7 @@ except ImportError:
 
 
 class ReactJSONSchemaField(BaseJSONField):
-    def __init__(
-        self,
-        schema=None,
-        ui_schema=None,
-        on_render=None,
-        extra_css=None,
-        extra_js=None,
-        **kwargs
-    ):
+    def __init__(self, schema=None, ui_schema=None, on_render=None, extra_css=None, extra_js=None, **kwargs):
         kwargs.setdefault("default", dict)
         super(ReactJSONSchemaField, self).__init__(**kwargs)
         self.schema = schema

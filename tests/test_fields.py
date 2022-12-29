@@ -13,7 +13,12 @@ from testapp.models import (
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "field_name,field_value",
-    [("test_field", 1), ("test_field", "3ch"), ("test_field", "12characters"), ("unknown_field", True)],
+    [
+        ("test_field", 1),
+        ("test_field", "3ch"),
+        ("test_field", "12characters"),
+        ("unknown_field", True),
+    ],
 )
 def test_validation(field_name, field_value):
     obj = SchemaModel(json_field={"test_field": "6chars"})

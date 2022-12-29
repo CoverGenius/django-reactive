@@ -3,10 +3,10 @@ version: "3.5"
 services:
 
   db:
-    image: postgres:12-alpine
+    image: postgres:15-alpine
     restart: always
     volumes:
-      - "./data/pgdata:/var/lib/postgresql/data"
+      - db_vol:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
@@ -24,7 +24,7 @@ services:
   web:
     build: .
     command: >
-      sh -c './wait-for db:5432 --
+      sh -c 'python /code/bin/wait_for_it.py -a db -p 5432 --
           python example/manage.py makemigrations &&
           python example/manage.py migrate &&
           python example/manage.py loaddata admin &&
@@ -35,3 +35,6 @@ services:
       - "8000:8000"
     depends_on:
       - db
+
+volumes:
+  db_vol: ~

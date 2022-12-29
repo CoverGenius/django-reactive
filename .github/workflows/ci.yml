@@ -15,12 +15,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [ "3.7", "3.8", "3.9", "3.10" ]
-        django: [ "2.2.26", "3.2.11", "4.0.1" ]
+        python: ["3.8", "3.9", "3.10", "3.11"]
+        django: ["3.2.16", "4.0.8", "4.1.4" ]
         exclude:
-        # excludes Django 4 on Python 3.7
-        - python: 3.7
-          django: 4.0.1
+        # Excludes Python 3.11 for Django < 4.1
+        - python: 3.11
+          django: 3.2.16
+        - python: 3.11
+          django: 4.0.8
 
     services:
       postgres:
@@ -58,7 +60,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.9
+          python-version: 3.10
           architecture: x64
       - run: pip install --upgrade pip
       - run: pip install poetry
@@ -70,3 +72,15 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.pypi_password }}
+      - uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            Changes:
+            - ...
+            - ...
+          draft: true
+          prerelease: false

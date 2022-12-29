@@ -25,7 +25,11 @@ TODO_SCHEMA = {
             "type": "object",
             "properties": {
                 "name": {"title": "Name", "type": "string"},
-                "tasks": {"title": "Tasks", "type": "array", "items": {"$ref": "#/definitions/Task"}},
+                "tasks": {
+                    "title": "Tasks",
+                    "type": "array",
+                    "items": {"$ref": "#/definitions/Task"},
+                },
             },
             "required": ["name", "tasks"],
         },
