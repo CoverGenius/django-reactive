@@ -77,3 +77,15 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.pypi_password }}
+      - uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          body: |
+            Changes:
+            - ...
+            - ...
+          draft: true
+          prerelease: false
