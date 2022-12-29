@@ -19,10 +19,10 @@ jobs:
         django: ["3.2.16", "4.0.8", "4.1.4" ]
         exclude:
         # Excludes Python 3.11 for Django < 4.1
-        - python: 3.11
-          django: 3.2.16
-        - python: 3.11
-          django: 4.0.8
+        - python: "3.11"
+          django: "3.2.16"
+        - python: "3.11"
+          django: "4.0.8"
 
     services:
       postgres:
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.10
+          python-version: "3.10"
           architecture: x64
       - run: pip install --upgrade pip
       - run: pip install poetry

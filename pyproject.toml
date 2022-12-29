@@ -10,7 +10,7 @@ extend-exclude = '''
 
 [tool.poetry]
 name = "django-reactive"
-version = "0.0.11"
+version = "0.0.12"
 description = "Django JSON form field on steroids"
 authors = ["Artem Kolesnikov <tyomo4ka@gmail.com>"]
 license = "MIT"
