@@ -3,9 +3,9 @@ from django.db import models
 from django_reactive.fields import ReactJSONSchemaField
 
 
-class TestModel(models.Model):
+class BasicExampleModel(models.Model):
     basic = ReactJSONSchemaField(
-        help_text="Basic",
+        help_text="Basic example",
         schema={
             "title": "A registration form",
             "description": "A basic form example.",
@@ -34,6 +34,8 @@ class TestModel(models.Model):
         },
     )
 
+
+class NestedExampleModel(models.Model):
     nested = ReactJSONSchemaField(
         help_text="Nested",
         schema={
@@ -72,15 +74,15 @@ class TestModel(models.Model):
         ui_schema={"tasks": {"items": {"details": {"ui:widget": "textarea"}}}},
     )
 
+
+class ArraysExampleModel(models.Model):
     arrays = ReactJSONSchemaField(
         help_text="Arrays",
         schema={
             "definitions": {
                 "Thing": {
                     "type": "object",
-                    "properties": {
-                        "name": {"type": "string", "default": "Default name"}
-                    },
+                    "properties": {"name": {"type": "string", "default": "Default name"}},
                 }
             },
             "type": "object",
@@ -95,19 +97,6 @@ class TestModel(models.Model):
                     "title": "A multiple choices list",
                     "items": {"type": "string", "enum": ["foo", "bar", "fuzz", "qux"]},
                     "uniqueItems": True,
-                },
-                "fixedItemsList": {
-                    "type": "array",
-                    "title": "A list of fixed items",
-                    "items": [
-                        {
-                            "title": "A string value",
-                            "type": "string",
-                            "default": "lorem ipsum",
-                        },
-                        {"title": "a boolean value", "type": "boolean"},
-                    ],
-                    "additionalItems": {"title": "Additional item", "type": "number"},
                 },
                 "minItemsList": {
                     "type": "array",
@@ -146,39 +135,19 @@ class TestModel(models.Model):
                     "type": "array",
                     "items": {"type": "string", "default": "lorem ipsum"},
                 },
-                "fixedNoToolbar": {
-                    "title": "Fixed array without buttons",
-                    "type": "array",
-                    "items": [
-                        {"title": "A number", "type": "number", "default": 42},
-                        {"title": "A boolean", "type": "boolean", "default": False},
-                    ],
-                    "additionalItems": {
-                        "title": "A string",
-                        "type": "string",
-                        "default": "lorem ipsum",
-                    },
-                },
             },
         },
         ui_schema={
             "listOfStrings": {"items": {"ui:emptyValue": ""}},
             "multipleChoicesList": {"ui:widget": "checkboxes"},
-            "fixedItemsList": {
-                "items": [{"ui:widget": "textarea"}, {"ui:widget": "select"}],
-                "additionalItems": {"ui:widget": "updown"},
-            },
             "unorderable": {"ui:options": {"orderable": False}},
             "unremovable": {"ui:options": {"removable": False}},
-            "noToolbar": {
-                "ui:options": {"addable": False, "orderable": False, "removable": False}
-            },
-            "fixedNoToolbar": {
-                "ui:options": {"addable": False, "orderable": False, "removable": False}
-            },
+            "noToolbar": {"ui:options": {"addable": False, "orderable": False, "removable": False}},
         },
     )
 
+
+class NumbersExampleModel(models.Model):
     numbers = ReactJSONSchemaField(
         help_text="Numbers",
         schema={
@@ -220,6 +189,8 @@ class TestModel(models.Model):
         },
     )
 
+
+class WidgetExampleModel(models.Model):
     widgets = ReactJSONSchemaField(
         help_text="Widgets",
         schema={
@@ -309,6 +280,8 @@ class TestModel(models.Model):
         },
     )
 
+
+class OrderingExampleModel(models.Model):
     ordering = ReactJSONSchemaField(
         help_text="Ordering",
         schema={
@@ -331,6 +304,8 @@ class TestModel(models.Model):
         },
     )
 
+
+class ReferencesExampleModel(models.Model):
     references = ReactJSONSchemaField(
         help_text="",
         schema={
@@ -371,6 +346,9 @@ class TestModel(models.Model):
         ui_schema={"ui:order": ["shipping_address", "billing_address", "tree"]},
     )
 
+
+class ErrorsExampleModel(models.Model):
+
     errors = ReactJSONSchemaField(
         help_text="Errors",
         schema={
@@ -400,6 +378,8 @@ class TestModel(models.Model):
         ui_schema={},
     )
 
+
+class LargeExampleModel(models.Model):
     large = ReactJSONSchemaField(
         help_text="Large",
         schema={
@@ -529,6 +509,8 @@ class TestModel(models.Model):
         ui_schema={"choice1": {"ui:placeholder": "Choose one"}},
     )
 
+
+class DateAndTimeExampleModel(models.Model):
     date_and_time = ReactJSONSchemaField(
         help_text="Date and time",
         schema={
@@ -569,6 +551,8 @@ class TestModel(models.Model):
         },
     )
 
+
+class ValidationExampleModel(models.Model):
     validation = ReactJSONSchemaField(
         help_text="Validation",
         schema={
@@ -587,6 +571,8 @@ class TestModel(models.Model):
         },
     )
 
+
+class FileTestModel(models.Model):
     file = ReactJSONSchemaField(
         help_text="Files",
         schema={
@@ -608,6 +594,8 @@ class TestModel(models.Model):
         ui_schema={},
     )
 
+
+class AlternativesExample(models.Model):
     alternatives = ReactJSONSchemaField(
         help_text="Alternatives",
         schema={
@@ -648,6 +636,9 @@ class TestModel(models.Model):
         },
         ui_schema={"blendMode": {"ui:enumDisabled": ["multiply"]}},
     )
+
+
+class PropertyDependenciesExample(models.Model):
 
     property_dependencies = ReactJSONSchemaField(
         help_text="Property dependencies",
@@ -692,6 +683,8 @@ class TestModel(models.Model):
         ui_schema={},
     )
 
+
+class SchemaDependenciesExampleModel(models.Model):
     schema_dependencies = ReactJSONSchemaField(
         help_text="Schema dependencies",
         schema={
@@ -722,17 +715,6 @@ class TestModel(models.Model):
                     "type": "array",
                     "items": {"$ref": "#/definitions/person"},
                 },
-                "fixedArrayOfConditionals": {
-                    "title": "Fixed array of conditionals",
-                    "type": "array",
-                    "items": [
-                        {"title": "Primary person", "$ref": "#/definitions/person"}
-                    ],
-                    "additionalItems": {
-                        "title": "Additional person",
-                        "$ref": "#/definitions/person",
-                    },
-                },
             },
             "definitions": {
                 "person": {
@@ -749,11 +731,7 @@ class TestModel(models.Model):
                     "dependencies": {
                         "Do you have any pets?": {
                             "oneOf": [
-                                {
-                                    "properties": {
-                                        "Do you have any pets?": {"enum": ["No"]}
-                                    }
-                                },
+                                {"properties": {"Do you have any pets?": {"enum": ["No"]}}},
                                 {
                                     "properties": {
                                         "Do you have any pets?": {"enum": ["Yes: One"]},
@@ -763,12 +741,8 @@ class TestModel(models.Model):
                                 },
                                 {
                                     "properties": {
-                                        "Do you have any pets?": {
-                                            "enum": ["Yes: More than one"]
-                                        },
-                                        "Do you want to get rid of any?": {
-                                            "type": "boolean"
-                                        },
+                                        "Do you have any pets?": {"enum": ["Yes: More than one"]},
+                                        "Do you want to get rid of any?": {"type": "boolean"},
                                     },
                                     "required": ["Do you want to get rid of any?"],
                                 },
@@ -779,4 +753,34 @@ class TestModel(models.Model):
             },
         },
         ui_schema=(),
+    )
+
+
+class MultipleExampleModel(models.Model):
+    first = ReactJSONSchemaField(
+        help_text="First field",
+        schema={
+            "title": "A form",
+            "description": "Demonstrates two RJSF fields can be used simultaneously.",
+            "type": "object",
+            "required": ["firstName"],
+            "properties": {
+                "firstName": {"type": "string", "title": "First name"},
+            },
+        },
+        ui_schema={
+            "firstName": {"ui:autofocus": True, "ui:emptyValue": ""},
+        },
+    )
+    second = ReactJSONSchemaField(
+        help_text="Second field",
+        schema={
+            "title": "Another form",
+            "description": "Demonstrates two RJSF fields can be used simultaneously.",
+            "type": "object",
+            "required": ["lastName"],
+            "properties": {
+                "lastName": {"type": "string", "title": "Last name"},
+            },
+        },
     )
