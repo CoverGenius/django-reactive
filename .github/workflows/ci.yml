@@ -51,6 +51,13 @@ jobs:
       - run: PGPASSWORD=postgres psql -c 'create database tests;' -U postgres -h localhost -p 5432
       - run: poetry run ./bin/test
 
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+    - uses: pre-commit/action@v3.0.0
+
   publish:
     if: startsWith(github.event.ref, 'refs/tags')
     name: publish

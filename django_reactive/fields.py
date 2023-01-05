@@ -15,8 +15,8 @@ except ImportError:
 
 class ReactJSONSchemaField(BaseJSONField):
     def __init__(self, schema=None, ui_schema=None, on_render=None, extra_css=None, extra_js=None, **kwargs):
-        kwargs.setdefault("default", dict)
-        super(ReactJSONSchemaField, self).__init__(**kwargs)
+        kwargs.setdefault('default', dict)
+        super().__init__(**kwargs)
         self.schema = schema
         self.ui_schema = ui_schema
         self.on_render = on_render
@@ -25,7 +25,7 @@ class ReactJSONSchemaField(BaseJSONField):
 
     def formfield(self, **kwargs):
         defaults = {
-            "required": not self.blank,
+            'required': not self.blank,
         }
         defaults.update(**kwargs)
         return ReactJSONSchemaFormField(
@@ -40,22 +40,22 @@ class ReactJSONSchemaField(BaseJSONField):
         )
 
     def validate(self, value, model_instance):
-        super(ReactJSONSchemaField, self).validate(value, model_instance)
+        super().validate(value, model_instance)
         try:
             validate(value, self.schema)
         except JSONSchemaValidationError:
-            raise ValidationError("This field has errors.")
+            raise ValidationError('This field has errors.')
 
     def check(self, **kwargs):
-        errors = super(ReactJSONSchemaField, self).check(**kwargs)
+        errors = super().check(**kwargs)
         res, schema_errors = validate_json_schema(self.schema)
         if not res:
             msg = ','.join(schema_errors)
             errors = [
                 checks.Error(
-                    f"JSON schema is not valid: {msg}",
+                    f'JSON schema is not valid: {msg}',
                     obj=self.model,
-                    id="fields.JSON_SCHEMA_ERROR",
+                    id='fields.JSON_SCHEMA_ERROR',
                 )
             ]
 

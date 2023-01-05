@@ -12,125 +12,125 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="AlternativesExample",
+            name='AlternativesExample',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("alternatives", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Alternatives")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('alternatives', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Alternatives')),
             ],
         ),
         migrations.CreateModel(
-            name="ArraysExampleModel",
+            name='ArraysExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("arrays", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Arrays")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('arrays', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Arrays')),
             ],
         ),
         migrations.CreateModel(
-            name="BasicExampleModel",
+            name='BasicExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("basic", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Basic example")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('basic', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Basic example')),
             ],
         ),
         migrations.CreateModel(
-            name="DateAndTimeExampleModel",
+            name='DateAndTimeExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 (
-                    "date_and_time",
-                    django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Date and time"),
+                    'date_and_time',
+                    django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Date and time'),
                 ),
             ],
         ),
         migrations.CreateModel(
-            name="ErrorsExampleModel",
+            name='ErrorsExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("errors", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Errors")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('errors', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Errors')),
             ],
         ),
         migrations.CreateModel(
-            name="FileTestModel",
+            name='FileTestModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("file", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Files")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('file', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Files')),
             ],
         ),
         migrations.CreateModel(
-            name="LargeExampleModel",
+            name='LargeExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("large", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Large")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('large', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Large')),
             ],
         ),
         migrations.CreateModel(
-            name="MultipleExampleModel",
+            name='MultipleExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("first", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="First field")),
-                ("second", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Second field")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('first', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='First field')),
+                ('second', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Second field')),
             ],
         ),
         migrations.CreateModel(
-            name="NestedExampleModel",
+            name='NestedExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("nested", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Nested")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('nested', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Nested')),
             ],
         ),
         migrations.CreateModel(
-            name="NumbersExampleModel",
+            name='NumbersExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("numbers", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Numbers")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('numbers', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Numbers')),
             ],
         ),
         migrations.CreateModel(
-            name="OrderingExampleModel",
+            name='OrderingExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("ordering", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Ordering")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('ordering', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Ordering')),
             ],
         ),
         migrations.CreateModel(
-            name="PropertyDependenciesExample",
+            name='PropertyDependenciesExample',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 (
-                    "property_dependencies",
-                    django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Property dependencies"),
+                    'property_dependencies',
+                    django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Property dependencies'),
                 ),
             ],
         ),
         migrations.CreateModel(
-            name="ReferencesExampleModel",
+            name='ReferencesExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("references", django_reactive.fields.ReactJSONSchemaField(default=dict)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('references', django_reactive.fields.ReactJSONSchemaField(default=dict)),
             ],
         ),
         migrations.CreateModel(
-            name="SchemaDependenciesExampleModel",
+            name='SchemaDependenciesExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 (
-                    "schema_dependencies",
-                    django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Schema dependencies"),
+                    'schema_dependencies',
+                    django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Schema dependencies'),
                 ),
             ],
         ),
         migrations.CreateModel(
-            name="ValidationExampleModel",
+            name='ValidationExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("validation", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Validation")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('validation', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Validation')),
             ],
         ),
         migrations.CreateModel(
-            name="WidgetExampleModel",
+            name='WidgetExampleModel',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("widgets", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Widgets")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('widgets', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Widgets')),
             ],
         ),
     ]

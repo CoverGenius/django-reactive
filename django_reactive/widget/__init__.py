@@ -9,7 +9,7 @@ class ReactJSONSchemaModelForm(ModelForm):
     """
 
     def __init__(self, *args, **kwargs):
-        on_render_object = kwargs.get("instance", None)
+        on_render_object = kwargs.get('instance', None)
         super().__init__(*args, **kwargs)
         for field_name, field_value in self.fields.items():
             if isinstance(field_value, ReactJSONSchemaFormField):

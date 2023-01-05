@@ -12,18 +12,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="TaskType",
+            name='TaskType',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("name", models.CharField(max_length=255)),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name="Todo",
+            name='Todo',
             fields=[
-                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
-                ("name", models.CharField(max_length=255)),
-                ("task_lists", django_reactive.fields.ReactJSONSchemaField(default=dict, help_text="Task lists")),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('name', models.CharField(max_length=255)),
+                ('task_lists', django_reactive.fields.ReactJSONSchemaField(default=dict, help_text='Task lists')),
             ],
         ),
     ]

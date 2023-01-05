@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-  /* 
+  /*
     Modify the editor dynamically on page load.
-    
+
     IMPORTANT: Changes defined here may be overwritten by React component state, so it
                may not be reliable for dynamic schema mutations.
   */
