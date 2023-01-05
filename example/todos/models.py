@@ -12,12 +12,12 @@ class Todo(models.Model):
 
     name = models.CharField(max_length=255)
     task_lists = ReactJSONSchemaField(
-        help_text="Task lists",
+        help_text='Task lists',
         schema=TODO_SCHEMA,
         ui_schema=TODO_UI_SCHEMA,
         on_render=set_task_types,
-        extra_css=["css/extra.css"],
-        extra_js=["js/extra.js"],
+        extra_css=['css/extra.css'],
+        extra_js=['js/extra.js'],
     )
 
 

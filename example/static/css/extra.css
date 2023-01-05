@@ -1,12 +1,12 @@
 .dynamic-task-item {
-  /* 
+  /*
     Modify the background color of the schema element with this 'classNames' attribute defined
   */
   background: #f0f0f0;
 }
 
 .aligned .form-row input {
-  /* 
+  /*
     Set the row width of all matching form inputs
   */
   width: 300px;

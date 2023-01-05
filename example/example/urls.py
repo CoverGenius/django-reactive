@@ -8,13 +8,13 @@ from tester.views import TestModelFormView, TestModelDetailView
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("tester/create/", TestModelFormView.as_view(), name="create"),
-    path("tester/<int:pk>/", TestModelDetailView.as_view(), name="detail"),
+    path('admin/', admin.site.urls),
+    path('tester/create/', TestModelFormView.as_view(), name='create'),
+    path('tester/<int:pk>/', TestModelDetailView.as_view(), name='detail'),
 ]
 
 
 if settings.DEBUG:
     from django.urls import re_path
 
-    urlpatterns += [re_path(r"^static/(?P<path>.*)$", views.serve)]
+    urlpatterns += [re_path(r'^static/(?P<path>.*)$', views.serve)]
