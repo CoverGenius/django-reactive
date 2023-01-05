@@ -1,8 +1,10 @@
 from django.core.exceptions import ValidationError
+from django.core import checks
 from jsonschema import validate, ValidationError as JSONSchemaValidationError
 
 from .widget.fields import ReactJSONSchemaFormField
 from .widget.widgets import ReactJSONSchemaFormWidget
+from .schema_validator import validate_json_schema
 
 try:
     # DJANGO 3.1
@@ -43,3 +45,18 @@ class ReactJSONSchemaField(BaseJSONField):
             validate(value, self.schema)
         except JSONSchemaValidationError:
             raise ValidationError("This field has errors.")
+
+    def check(self, **kwargs):
+        errors = super(ReactJSONSchemaField, self).check(**kwargs)
+        res, schema_errors = validate_json_schema(self.schema)
+        if not res:
+            msg = ','.join(schema_errors)
+            errors = [
+                checks.Error(
+                    f"JSON schema is not valid: {msg}",
+                    obj=self.model,
+                    id="fields.JSON_SCHEMA_ERROR",
+                )
+            ]
+
+        return errors

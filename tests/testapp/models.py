@@ -113,3 +113,12 @@ class ExtraMediaSchemaModel(models.Model):
         extra_css=["path/to/my/css/file.css"],
         extra_js=["path/to/my/js/file.js"],
     )
+
+
+class InvalidSchemaModel(models.Model):
+    invalid_json_schema_field = ReactJSONSchemaField(
+        schema={
+            "type": "object",
+            "properties": {"test_field": {"type": "incorrect"}},
+        }
+    )

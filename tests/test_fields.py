@@ -7,6 +7,7 @@ from testapp.models import (
     ExtraMediaSchemaModel,
     RenderMethodSchemaModel,
     RenderMethodWithObjectSchemaModel,
+    InvalidSchemaModel,
 )
 
 
@@ -107,3 +108,14 @@ def test_on_render_object(condition):
 
     help_text = "Condition is set" if condition else "Condition is unset"
     assert widget.ui_schema == {"test_field": {"ui:help": help_text}}
+
+
+def test_schema_validation():
+    obj = InvalidSchemaModel(invalid_json_schema_field={"test_field": "6chars"})
+    field = obj._meta.get_field("invalid_json_schema_field")
+    errors = field.check()
+    assert len(errors) == 1
+    assert (
+        errors[0].msg
+        == "JSON schema is not valid: properties.test_field.type: 'incorrect' is not valid under any of the given schemas"
+    )
