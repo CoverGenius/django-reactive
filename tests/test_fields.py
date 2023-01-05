@@ -115,5 +115,7 @@ def test_schema_validation():
     field = obj._meta.get_field('invalid_json_schema_field')
     errors = field.check()
     assert len(errors) == 1
-    assert errors[0].msg == "JSON schema is not valid: properties.test_field.type: 'incorrect' is not valid under " \
-                            'any of the given schemas'
+    assert (
+        errors[0].msg == "JSON schema is not valid: properties.test_field.type: 'incorrect' is not valid under "
+        'any of the given schemas'
+    )
