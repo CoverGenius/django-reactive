@@ -27,9 +27,9 @@ keywords = ["django",
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4"
-jsonschema = "^3.0||^4.0"
-psycopg2-binary = "^2.7||^3.0"
-django = "^3.2||^4.0||^5.0"
+jsonschema = ">=3.0,<5"
+psycopg2-binary = ">=2.7,<4"
+django = ">=3.2"
 
 
 [tool.poetry.dev-dependencies]
