@@ -15,9 +15,31 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.10", "3.11", "3.12", "3.13", "3.14"]
-        django: ["4.2", "5.0", "5.1", "5.2"]
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        django: ["3.2", "4.2", "5.0", "5.1", "5.2"]
         exclude:
+        # Django 5.x requires Python 3.10+
+        - python: "3.8"
+          django: "5.0"
+        - python: "3.8"
+          django: "5.1"
+        - python: "3.8"
+          django: "5.2"
+        - python: "3.9"
+          django: "5.0"
+        - python: "3.9"
+          django: "5.1"
+        - python: "3.9"
+          django: "5.2"
+        # Django 3.2 only supports up to Python 3.10
+        - python: "3.11"
+          django: "3.2"
+        - python: "3.12"
+          django: "3.2"
+        - python: "3.13"
+          django: "3.2"
+        - python: "3.14"
+          django: "3.2"
         # Python 3.13+ requires Django 5.1+
         - python: "3.13"
           django: "4.2"
