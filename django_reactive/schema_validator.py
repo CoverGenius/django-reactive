@@ -1,8 +1,7 @@
 from jsonschema import Draft7Validator
-from typing import List, Tuple
 
 
-def validate_json_schema(schema: dict) -> Tuple[bool, List[str]]:
+def validate_json_schema(schema: dict) -> tuple[bool, list[str]]:
     """
     Validate a JSON schema using the Draft 7 validator.
     """
