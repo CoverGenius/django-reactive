@@ -38,7 +38,7 @@ mock = "^5.0"
 pytest = "^8.0"
 pytest-cov = "^6.0"
 pytest-django = "^4.9"
-pre-commit = "^4.0"
+pre-commit = "^3.0"
 
 
 [build-system]
