@@ -69,7 +69,7 @@ class wait_for_app:
         except OptionException as err:
             print(err)
             parser.print_help()
-        except socket.timeout:
+        except TimeoutError:
             logmsg = self.build_log(5, self.app, int(self.options.timeout))
             self.log(logmsg)
         except ConnectionRefusedError:

@@ -15,14 +15,42 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.8", "3.9", "3.10", "3.11"]
-        django: ["3.2.16", "4.0.8", "4.1.4" ]
+        python: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        django: ["3.2", "4.2", "5.0", "5.1", "5.2"]
         exclude:
-        # Excludes Python 3.11 for Django < 4.1
+        # Django 5.x requires Python 3.10+
+        - python: "3.8"
+          django: "5.0"
+        - python: "3.8"
+          django: "5.1"
+        - python: "3.8"
+          django: "5.2"
+        - python: "3.9"
+          django: "5.0"
+        - python: "3.9"
+          django: "5.1"
+        - python: "3.9"
+          django: "5.2"
+        # Django 3.2 only supports up to Python 3.10
         - python: "3.11"
-          django: "3.2.16"
-        - python: "3.11"
-          django: "4.0.8"
+          django: "3.2"
+        - python: "3.12"
+          django: "3.2"
+        - python: "3.13"
+          django: "3.2"
+        - python: "3.14"
+          django: "3.2"
+        # Python 3.13+ requires Django 5.1+
+        - python: "3.13"
+          django: "4.2"
+        - python: "3.13"
+          django: "5.0"
+        - python: "3.14"
+          django: "4.2"
+        - python: "3.14"
+          django: "5.0"
+        - python: "3.14"
+          django: "5.1"
 
     services:
       postgres:
@@ -38,11 +66,11 @@ jobs:
           - 5432:5432
 
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-          architecture: x64
+          allow-prereleases: true
       - run: pip install --upgrade pip
       - run: pip install poetry
       - run: poetry config --local virtualenvs.in-project true
@@ -54,40 +82,49 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
-    - uses: pre-commit/action@v3.0.0
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+    - uses: pre-commit/action@v3.0.1
 
   publish:
     if: startsWith(github.event.ref, 'refs/tags')
     name: publish
     needs: pytest
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/django-reactive
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted publishing
+      contents: write # IMPORTANT: mandatory for making GitHub Releases
+
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
-          architecture: x64
-      - run: pip install --upgrade pip
-      - run: pip install poetry
-      - run: poetry build
-      - uses: pypa/gh-action-pypi-publish@master
+          python-version: "3.12"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry build
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          password: ${{ secrets.pypi_password_test }}
-          repository_url: https://test.pypi.org/legacy/
-      - uses: pypa/gh-action-pypi-publish@master
-        with:
-          password: ${{ secrets.pypi_password }}
-      - uses: actions/create-release@v1
+          repository-url: https://test.pypi.org/legacy/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Create GitHub Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: |
-            Changes:
-            - ...
-            - ...
-          draft: true
-          prerelease: false
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Release $GITHUB_REF_NAME"
+      - name: Upload artifacts to release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "$GITHUB_REF_NAME" dist/* \
+            --repo "$GITHUB_REPOSITORY"

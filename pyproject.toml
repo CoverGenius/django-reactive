@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 119
-target-version = ['py38']
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312', 'py313']
 include = '\.pyi?$'
 extend-exclude = '''
 (
@@ -27,18 +27,18 @@ keywords = ["django",
 
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4"
-jsonschema = "^3.0||^4.0"
-psycopg2-binary = "^2.7||^3.0"
-django = "^3.2||^4.0"
+jsonschema = ">=3.0,<5"
+psycopg2-binary = ">=2.7,<4"
+django = ">=3.2"
 
 
 [tool.poetry.dev-dependencies]
 bump2version = "^1.0.1"
 mock = "^5.0"
-pytest = "^7.2"
+pytest = "^8.0"
 pytest-cov = "^4.0"
-pytest-django = "^4.5"
-pre-commit = "^3.0.4"
+pytest-django = "^4.9"
+pre-commit = "^3.0"
 
 
 [build-system]
