@@ -3,6 +3,12 @@
 History
 -------
 
+0.0.13 (2026-03-27)
++++++++++++++++++++
+
+* Added support for Python 3.12, 3.13, 3.14 and Django 5.2
+* Improved PyPI publishing workflow
+
 0.0.2 (2018-12-17)
 ++++++++++++++++++
 
