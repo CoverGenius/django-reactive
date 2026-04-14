@@ -6,7 +6,6 @@ from django.forms.widgets import Widget
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
-
 logger = logging.getLogger(__name__)
 
 
