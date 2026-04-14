@@ -6,7 +6,6 @@ from django.contrib.staticfiles import views
 
 from tester.views import TestModelFormView, TestModelDetailView
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tester/create/', TestModelFormView.as_view(), name='create'),
